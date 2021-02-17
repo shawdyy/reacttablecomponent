@@ -1,0 +1,33 @@
+export const tableHeadTransformations = {
+    unique_adtile_id: "Unique Alert ID",
+    incident_id: "Alert ID",
+    date: "Datum",
+    reason_dropdown: "Grund",
+    user_input: "Nutzer Freitext",
+    user_agent: "User Agent",
+    toplevel_adunit: "Adunit Toplevel",
+    adunit: "Adunit Gesamt",
+    _url: "URL",
+    layout: "Layout",
+    adtile: "Adtile",
+    banner_type: "Werbeform",
+    size: "Slotgröße",
+    adapter: "Adserver",
+    classification: "Klassifikation",
+    gam_advertiser_id: "GAM Advertiser ID",
+    gam_lineitem_id: "GAM Lineitem ID",
+    gam_troubleshoot_id: "GAM Troubleshoot ID ID",
+    ast_auction_id: "AST Auction ID",
+    ast_tag_id: "AST Tag ID",
+    creative_id: "Creative ID",
+    hb_bidder: "HB Bidder",
+    hb_adid: "HB Ad ID",
+    hb_dealid: "HB Deal ID",
+};
+
+export const tableBodyTransformations = {
+    unique_adtile_id: (input:(string | number)):string => "#" + input,
+    incident_id: (input:(string | number)):string => "#" + input,
+    date: (input:(string | number)):string => new Date(input).toLocaleDateString("de"),
+    adapter: (input:(string | number)):string => (input === "GPT") ? "Google Admanager" : (input === "AST") ? "Xandr" : "-",
+}

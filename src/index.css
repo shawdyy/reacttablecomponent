@@ -1,0 +1,21 @@
+body > *{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.ReactTableComponent{
+    overflow-x: scroll;
+}
+table{
+    overflow-x: scroll;
+    max-width: 100vw;
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+    border-radius: 4px;
+}
+th{
+    border: 1px solid lightgrey;
+    padding: 5px 8px;
+}
+td{
+    border: 1px solid lightgrey;
+    padding: 5px;
+}
