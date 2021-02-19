@@ -25,6 +25,7 @@ const ReactTableComponent = () =>{
                         isHead={true}
                         headerKeys={ReactTable.tableState?.columns}
                         transformConfig={tableHeadTransformations}
+                        sortingObject={ReactTable.sortingState}
                         headerClickHandler={headerCellClickHandler}
                     />
                 </thead>
@@ -36,6 +37,7 @@ const ReactTableComponent = () =>{
                                 isHead={false}
                                 headerKeys={ReactTable.tableState?.columns}
                                 transformConfig={tableBodyTransformations}
+                                sortingObject={ReactTable.sortingState}
                                 rowData={tablerow}
                                 key={index}
                             />

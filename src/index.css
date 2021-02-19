@@ -1,3 +1,8 @@
+html{
+    margin:0;
+    padding: 0;
+    height: 100vh;
+}
 body > *{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -16,13 +21,35 @@ tr{
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
 }
+tr.bodyRow:hover{
+    background: #bdbdff;
+    transition: all 200ms;
+}
 th{
     text-align: left;
-    padding: 5px 8px;
+    padding: 5px 10px;
     min-width: 60px;
     font-size: 14px;
     color: rgb(122, 122, 122);
+    transition: all 200ms;
+    position: relative;
+}
+th:hover{
+    color: white;
+    background-color: #5f5fff;
+    cursor: pointer;
+    transition: all 200ms;
 }
 td{
     padding: 5px;
+}
+.sortingMarker{
+    position: absolute;
+    top: 40%;
+    right: 3px;
+    color: #5f5fff;
+    font-weight: 700;
+}
+th:hover .sortingMarker{
+    color: white;
 }

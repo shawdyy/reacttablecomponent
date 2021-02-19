@@ -1,5 +1,6 @@
-import { BodyRowData, TableData, IReactTable } from "./types";
+import { BodyRowData, TableData, IReactTable, BodyTypeTransform } from "./types";
 import { useEffect, useState } from "react";
+import { tableBodyTypeTransform } from "./tableTransformation.config"
 
 export const maxCharLength = (input:string):string => {
     return (input && input.length > 70) ? input.substring(0, 67) + "..." : input;
@@ -46,11 +47,23 @@ export const useReactTable = (apiurl:string):IReactTable => {
         const sortedTable = {...table}
         sortedTable.values.sort(sortingCallback);
         _setTable(sortedTable);
+    };
+    const transformCellTypes = (tableData:TableData) => {
+        const c = {...tableData};
+        c.values = c.values.map((values:BodyRowData, i:number) => {
+            const d = values;
+            for(let i = 0, k = Object.keys(tableBodyTypeTransform); i < k.length; i++){
+                d[k[i]] = Number(d[k[i]]);
+            }
+            return d;
+        });
+        return c;
     }
     useEffect(() => {
         (async function(apiurl){
             const rawTableData = await fetchData(apiurl);
-            sortTable(rawTableData);
+            const transformedTypes = transformCellTypes(rawTableData);
+            sortTable(transformedTypes);
         })(apiurl);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);

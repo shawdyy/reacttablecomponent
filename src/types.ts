@@ -5,8 +5,8 @@ export interface TableData  {
     values: BodyRowData[]
 }
 export interface BodyRowData {
-    unique_adtile_id:string
-    incident_id:string
+    unique_adtile_id:string|number
+    incident_id:string|number
     date:string
     reason_dropdown:string
     user_input:string
@@ -29,11 +29,11 @@ export interface BodyRowData {
     hb_bidder:string
     hb_adid:string
     hb_dealid:string
-    [propNames:string]:string
+    [propNames:string]:string|number
 }
 export interface HeaderTransformConfig {
-    unique_adtile_id:string
-    incident_id:string
+    unique_adtile_id:string|number
+    incident_id:string|number
     date:string
     adapter:string
     reason_dropdown:string
@@ -56,14 +56,17 @@ export interface HeaderTransformConfig {
     hb_bidder:string
     hb_adid:string
     hb_dealid:string
-    [propNames:string]:string
+    [propNames:string]:string|number
 }
 export interface BodyTransformConfig {
-    unique_adtile_id: ((i:string) => string)
-    incident_id:((i:string) => string)
+    unique_adtile_id: ((i:number) => string)
+    incident_id:((i:number) => string)
     date:((i:string) => string)
     adapter:((i:string) => string)
-    [propNames:string]:((i:string) => string)
+     [propNames:string]:((i:string) => string) | ((i:number) => string)
+}
+export interface BodyTypeTransform{
+    [propNames:string]:string
 }
 export interface ISortingObject {
     key:string,

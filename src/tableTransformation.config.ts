@@ -24,10 +24,13 @@ export const tableHeadTransformations = {
     hb_adid: "HB Ad ID",
     hb_dealid: "HB Deal ID",
 };
-
 export const tableBodyTransformations = {
-    unique_adtile_id: (input:string):string => "#" + input,
-    incident_id: (input:string):string => "#" + input,
+    unique_adtile_id: (input:number):string => "#"+input,
+    incident_id: (input:number):string => "#" + input,
     date: (input:string):string => new Date(input).toLocaleDateString("de"),
     adapter: (input:string):string => (input === "GPT") ? "Google Admanager" : (input === "AST") ? "Xandr" : "-",
+}
+export const tableBodyTypeTransform = {
+    unique_adtile_id: "number",
+    incident_id: "number",
 }
