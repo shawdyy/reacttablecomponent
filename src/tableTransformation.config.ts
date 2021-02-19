@@ -26,8 +26,8 @@ export const tableHeadTransformations = {
 };
 
 export const tableBodyTransformations = {
-    unique_adtile_id: (input:(string | number)):string => "#" + input,
-    incident_id: (input:(string | number)):string => "#" + input,
-    date: (input:(string | number)):string => new Date(input).toLocaleDateString("de"),
-    adapter: (input:(string | number)):string => (input === "GPT") ? "Google Admanager" : (input === "AST") ? "Xandr" : "-",
+    unique_adtile_id: (input:string):string => "#" + input,
+    incident_id: (input:string):string => "#" + input,
+    date: (input:string):string => new Date(input).toLocaleDateString("de"),
+    adapter: (input:string):string => (input === "GPT") ? "Google Admanager" : (input === "AST") ? "Xandr" : "-",
 }

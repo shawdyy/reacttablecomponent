@@ -1,63 +1,51 @@
-import React, { useState, useEffect} from 'react';
-import { transformTable } from "./helper";
-import { TableData } from './types';
+import React from 'react';
+import TableRow from "./TableRow";
+import { tableHeadTransformations, tableBodyTransformations } from "./tableTransformation.config";
+import { useReactTable } from "./helper";
+import { BodyRowData } from "./types";
 
 const ReactTableComponent = () =>{
+    const apiurl:string = "http://localhost:8000/get.php";
+    const ReactTable = useReactTable(apiurl);
 
-  const apiUrl = "http://localhost:8000/get.php"
-  const [isFetchingData, setIsFetchingData] = useState(true);
-  const [transformedTable, setTransformedTable] = useState();
+    const headerCellClickHandler = (headerKey:string) => {
+        if(ReactTable.sortingState.key === headerKey){
+            ReactTable.setSortingObject({...ReactTable.sortingState, ascending: !ReactTable.sortingState.ascending})
+        }
+        else{
+            ReactTable.setSortingObject({key: headerKey, ascending: false});
+        }
+    }
 
-  useEffect(()=>{
-      const response:Promise<Response> = fetch(apiUrl, {method: "get"});
-      response.then((resolved:Response) =>{
-        return resolved.json()
-      }) 
-      .then((parsed:TableData) =>{
-        return transformTable(parsed);
-      })
-      .then((transformedData:TableData) => {
-          setIsFetchingData(false);
-          setTransformedTable(transformedData)
-      })
-      .catch((err:Error) => {
-          console.error(err);
-          setIsFetchingData(false);
-      })
-  },[])
-
-  return (
-    <div className="ReactTableComponent">
-      <table>
-        <thead>
-          <tr>
-            {
-              transformedTable?.columns?.map((string:string, index:number) => {
-                return(
-                  <th key={index}>{string}</th>
-                )
-              })
-            }
-          </tr>
-        </thead>
-        <tbody>
-            {
-              transformedTable?.values?.map((tablerow:any, index:number) => {
-                return(
-                  <tr key={index}>
-                    {transformedTable?.columns.map((value:(number | string), index:number) =>{
-                      return(
-                        <td key={index}>{tablerow[value]}</td>
-                      )
-                    })}
-                  </tr>
-                )
-              })
-            }
-        </tbody>
-      </table>
-    </div>
-  );
+    return (
+        <div className="ReactTableComponent" >
+            <table>
+                <thead>
+                    <TableRow
+                        isHead={true}
+                        headerKeys={ReactTable.tableState?.columns}
+                        transformConfig={tableHeadTransformations}
+                        headerClickHandler={headerCellClickHandler}
+                    />
+                </thead>
+                <tbody>
+                    {  
+                        ReactTable.tableState?.values?.map((tablerow:BodyRowData, index:number) => {
+                            return(
+                            <TableRow
+                                isHead={false}
+                                headerKeys={ReactTable.tableState?.columns}
+                                transformConfig={tableBodyTransformations}
+                                rowData={tablerow}
+                                key={index}
+                            />
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+        </div>
+    );
 }
 
 export default ReactTableComponent;
