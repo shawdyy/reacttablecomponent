@@ -65,6 +65,11 @@ export interface BodyTransformConfig {
     adapter:((i:string) => string)
      [propNames:string]:((i:string) => string) | ((i:number) => string)
 }
+export interface StyleConfig{
+    [propNames:string]:{
+        [propNames:string]:(string|number)
+    }
+}
 export interface BodyTypeTransform{
     [propNames:string]:string
 }

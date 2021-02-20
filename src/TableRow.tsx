@@ -1,17 +1,18 @@
 import React, { MouseEvent } from "react";
 import { maxCharLength } from "./helper";
-import { BodyRowData, HeaderTransformConfig, BodyTransformConfig, ISortingObject } from "./types";
+import { BodyRowData, HeaderTransformConfig, BodyTransformConfig, ISortingObject, StyleConfig } from "./types";
 
 interface Iprops {
     isHead:boolean
     headerKeys:string[]
     transformConfig:HeaderTransformConfig | BodyTransformConfig
     sortingObject: ISortingObject
+    styleConfig?:StyleConfig
     rowData?:BodyRowData
     headerClickHandler?:(i:string)=>void
 }
 
-const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=undefined, headerClickHandler=undefined}:Iprops) => {
+const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=undefined, headerClickHandler=undefined, styleConfig=undefined}:Iprops) => {
     if(isHead){
         return(
             <tr className="headerRow">
@@ -21,8 +22,8 @@ const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=u
                             {transformConfig?.[header]}
                             {sortingObject.key === header && 
                                 ((sortingObject.ascending) ? 
-                                <span className="sortingMarker">/\</span> :
-                                <span className="sortingMarker">\/</span>)
+                                <span className="sortingMarker">▲</span> :
+                                <span className="sortingMarker">▼</span>)
                             }
                         </th>)
                 })}
@@ -36,13 +37,13 @@ const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=u
                     if(typeof transformConfig?.[header] === "function"){
                         const fn = transformConfig?.[header] as (i:(string|number)) => string;
                         return(
-                        <td key={index}>
+                        <td key={index} style={(styleConfig) ? styleConfig[header] : {}}>
                             {maxCharLength(fn(rowData?.[header]))}
                         </td>)
                     }
                     else{
                         return(
-                            <td key={index}>
+                            <td key={index} style={(styleConfig) ? styleConfig[header] : {}}>
                                 {rowData?.[header]}
                             </td>)
                     }

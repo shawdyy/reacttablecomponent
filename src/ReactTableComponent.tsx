@@ -1,6 +1,7 @@
 import React from 'react';
 import TableRow from "./TableRow";
-import { tableHeadTransformations, tableBodyTransformations } from "./tableTransformation.config";
+import Modal from "./Modal";
+import { tableHeadTransformations, tableBodyTransformations, styleConfig} from "./tableTransformation.config";
 import { useReactTable } from "./helper";
 import { BodyRowData } from "./types";
 
@@ -18,35 +19,41 @@ const ReactTableComponent = () =>{
     }
 
     return (
-        <div className="ReactTableComponent" >
-            <table>
-                <thead>
-                    <TableRow
-                        isHead={true}
-                        headerKeys={ReactTable.tableState?.columns}
-                        transformConfig={tableHeadTransformations}
-                        sortingObject={ReactTable.sortingState}
-                        headerClickHandler={headerCellClickHandler}
-                    />
-                </thead>
-                <tbody>
-                    {  
-                        ReactTable.tableState?.values?.map((tablerow:BodyRowData, index:number) => {
-                            return(
-                            <TableRow
-                                isHead={false}
-                                headerKeys={ReactTable.tableState?.columns}
-                                transformConfig={tableBodyTransformations}
-                                sortingObject={ReactTable.sortingState}
-                                rowData={tablerow}
-                                key={index}
-                            />
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <Modal>
+                <div></div>
+            </Modal>
+            <div className="ReactTableComponent" >
+                <table>
+                    <thead>
+                        <TableRow
+                            isHead={true}
+                            headerKeys={ReactTable.tableState?.columns}
+                            transformConfig={tableHeadTransformations}
+                            sortingObject={ReactTable.sortingState}
+                            headerClickHandler={headerCellClickHandler}
+                        />
+                    </thead>
+                    <tbody>
+                        {  
+                            ReactTable.tableState?.values?.map((tablerow:BodyRowData, index:number) => {
+                                return(
+                                <TableRow
+                                    isHead={false}
+                                    headerKeys={ReactTable.tableState?.columns}
+                                    transformConfig={tableBodyTransformations}
+                                    sortingObject={ReactTable.sortingState}
+                                    styleConfig={styleConfig}
+                                    rowData={tablerow}
+                                    key={index}
+                                />
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 }
 

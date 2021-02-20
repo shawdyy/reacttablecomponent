@@ -34,3 +34,12 @@ export const tableBodyTypeTransform = {
     unique_adtile_id: "number",
     incident_id: "number",
 }
+export const styleConfig = {
+    unique_adtile_id: {textAlign: "center", fontSize: 14, fontWeight: 700, color: "#7e57c2"},
+    incident_id: {textAlign: "center", fontSize: 14},
+    user_input: {minWidth: 200},
+    user_agent: {minWidth: 300},
+    toplevel_adunit: {},
+    layout: {textTransform: "capitalize"},
+    hb_bidder: {textTransform: "capitalize"},
+}
