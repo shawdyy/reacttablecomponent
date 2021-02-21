@@ -77,3 +77,4 @@ export const useReactTable = (apiurl:string):IReactTable => {
         setSortingObject: _setSortingObject
     };
 }
+// TODO: useModal

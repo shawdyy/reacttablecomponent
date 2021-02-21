@@ -22,7 +22,7 @@ tr{
     border-bottom: 1px solid lightgrey;
 }
 tr.bodyRow:hover{
-    background: #bdbdff;
+    background: #9595ff;
     transition: all 200ms;
 }
 th{
@@ -53,4 +53,55 @@ td{
 }
 th:hover .sortingMarker{
     color: white;
+}
+.modalBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #252538e5;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modalWindow {
+    min-width: 500px;
+    min-height: 700px;
+    background: white;
+    border-radius: 5px;
+}
+.modalHeader {
+    width: 100%;
+    min-height: 30px;
+    position: relative;
+    color:white;
+    background: #5f5fff;
+    padding: 7px;
+    box-sizing: border-box;
+}
+.modalHeaderTitleWrapper > h2 {
+    margin: 3px 0;
+}
+.closeButtonWrapper{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 40px;
+}
+.modalHeaderInfoText > p{
+    margin: 3px 0;
+}
+.closeButtonWrapper > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.closeButton{
+    font-size: 23px;
+    cursor: pointer;
 }

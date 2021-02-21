@@ -20,7 +20,10 @@ const ReactTableComponent = () =>{
 
     return (
         <>
-            <Modal>
+            <Modal
+                title={"Component"}
+                infoText={["TestText"]}
+            >
                 <div></div>
             </Modal>
             <div className="ReactTableComponent" >
