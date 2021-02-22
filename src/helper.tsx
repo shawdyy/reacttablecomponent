@@ -1,4 +1,4 @@
-import { BodyRowData, TableData, IReactTable, BodyTypeTransform } from "./types";
+import { BodyRowData, TableData, IReactTable, BodyTypeTransform, IModal } from "./types";
 import { useEffect, useState } from "react";
 import { tableBodyTypeTransform } from "./tableTransformation.config"
 
@@ -77,4 +77,14 @@ export const useReactTable = (apiurl:string):IReactTable => {
         setSortingObject: _setSortingObject
     };
 }
-// TODO: useModal
+export const useModal = ():IModal =>{
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [rowDataIndex, setRowDataIndex] = useState<number>(-1);
+
+    return {
+        isVisible: isVisible,
+        setIsVisible: setIsVisible,
+        rowDataIndex: rowDataIndex,
+        setRowDataIndex: setRowDataIndex
+    }
+}

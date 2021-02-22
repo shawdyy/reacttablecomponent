@@ -1,3 +1,5 @@
+import { BodyRowData } from "./types";
+
 export const tableHeadTransformations = {
     unique_adtile_id: "Unique Alert ID",
     incident_id: "Alert ID",
@@ -16,7 +18,7 @@ export const tableHeadTransformations = {
     classification: "Klassifikation",
     gam_advertiser_id: "GAM Advertiser ID",
     gam_lineitem_id: "GAM Lineitem ID",
-    gam_troubleshoot_id: "GAM Troubleshoot ID ID",
+    gam_troubleshoot_id: "GAM Troubleshoot ID",
     ast_auction_id: "AST Auction ID",
     ast_tag_id: "AST Tag ID",
     creative_id: "Creative ID",
@@ -29,6 +31,13 @@ export const tableBodyTransformations = {
     incident_id: (input:number):string => "#" + input,
     date: (input:string):string => new Date(input).toLocaleDateString("de"),
     adapter: (input:string):string => (input === "GPT") ? "Google Admanager" : (input === "AST") ? "Xandr" : "-",
+}
+export const valueToLinkConfig = {
+    _url: (bodyRow:BodyRowData):string => bodyRow._url,
+    gam_lineitem_id: (bodyRow:BodyRowData):string => "https://admanager.google.com/183#delivery/line_item/detail/line_item_id=" + bodyRow.gam_lineitem_id,
+    creative_id: (bodyRow:BodyRowData):string => "https://admanager.google.com/183#delivery/line_item/detail/line_item_id=" + bodyRow.gam_lineitem_id + "&creative_id=" + bodyRow.creative_id,
+    gam_troubleshoot_id: (bodyRow:BodyRowData):string => "https://admanager.google.com/183#troubleshooting/screenshot/query_id=" + bodyRow.gam_troubleshoot_id,
+    
 }
 export const tableBodyTypeTransform = {
     unique_adtile_id: "number",

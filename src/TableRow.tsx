@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import { MouseEvent } from "react";
 import { maxCharLength } from "./helper";
 import { BodyRowData, HeaderTransformConfig, BodyTransformConfig, ISortingObject, StyleConfig } from "./types";
 
@@ -10,9 +10,10 @@ interface Iprops {
     styleConfig?:StyleConfig
     rowData?:BodyRowData
     headerClickHandler?:(i:string)=>void
+    bodyClickHandler?:(e:MouseEvent) => void
 }
 
-const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=undefined, headerClickHandler=undefined, styleConfig=undefined}:Iprops) => {
+const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=undefined, headerClickHandler=undefined, bodyClickHandler=undefined, styleConfig=undefined}:Iprops) => {
     if(isHead){
         return(
             <tr className="headerRow">
@@ -32,7 +33,7 @@ const TableRow = ({isHead, headerKeys, transformConfig, sortingObject, rowData=u
     }
     else{
         return(
-            <tr className="bodyRow">
+            <tr className="bodyRow" onClick={bodyClickHandler}>
                 {rowData && headerKeys?.map((header:string, index:number) => {
                     if(typeof transformConfig?.[header] === "function"){
                         const fn = transformConfig?.[header] as (i:(string|number)) => string;

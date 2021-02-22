@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import TableRow from "./TableRow";
 import Modal from "./Modal";
-import { tableHeadTransformations, tableBodyTransformations, styleConfig} from "./tableTransformation.config";
-import { useReactTable } from "./helper";
+import ModalContent from "./ModalContent";
+import { tableHeadTransformations, tableBodyTransformations, valueToLinkConfig, styleConfig} from "./tableTransformation.config";
+import { useReactTable, useModal } from "./helper";
 import { BodyRowData } from "./types";
 
 const ReactTableComponent = () =>{
-    const apiurl:string = "http://localhost:8000/get.php";
+    const apiurl:string = "http://example.com";
     const ReactTable = useReactTable(apiurl);
+    const ReactModal = useModal();
 
     const headerCellClickHandler = (headerKey:string) => {
         if(ReactTable.sortingState.key === headerKey){
@@ -17,15 +19,29 @@ const ReactTableComponent = () =>{
             ReactTable.setSortingObject({key: headerKey, ascending: false});
         }
     }
+    const tableRowClickHandler = (index:number) => {
+        ReactModal.setIsVisible(true);
+        ReactModal.setRowDataIndex(index);
+    }
 
     return (
         <>
-            <Modal
-                title={"Component"}
-                infoText={["TestText"]}
-            >
-                <div></div>
-            </Modal>
+            { ReactModal.isVisible &&
+                <Modal
+                    title={"Unique Alert ID #" + ReactTable.tableState.values[ReactModal.rowDataIndex].unique_adtile_id}
+                    infoText={[tableBodyTransformations.date(ReactTable.tableState.values[ReactModal.rowDataIndex].date)]}
+                    closeClickHandler={(e:MouseEvent) => ReactModal.setIsVisible(false)}
+                >
+                    <ModalContent
+                       headerRow={ReactTable.tableState.columns} 
+                       bodyRow={ReactTable.tableState.values[ReactModal.rowDataIndex]} 
+                       headerTransformations={tableHeadTransformations}
+                       bodyTransformations={tableBodyTransformations}
+                       valueToLinkConfig={valueToLinkConfig}
+                       excludeKeys={["unique_adtile_id", "date"]}
+                    />
+                </Modal>
+            }
             <div className="ReactTableComponent" >
                 <table>
                     <thead>
@@ -49,6 +65,7 @@ const ReactTableComponent = () =>{
                                     styleConfig={styleConfig}
                                     rowData={tablerow}
                                     key={index}
+                                    bodyClickHandler={(e:MouseEvent) => tableRowClickHandler(index)}
                                 />
                                 )
                             })

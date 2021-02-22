@@ -73,6 +73,9 @@ export interface StyleConfig{
 export interface BodyTypeTransform{
     [propNames:string]:string
 }
+export interface IValueToLinkConfig{
+     [propNames:string]:((i:BodyRowData) => string)
+}
 export interface ISortingObject {
     key:string,
     ascending:boolean
@@ -81,4 +84,10 @@ export interface IReactTable {
     tableState: TableData
     sortingState: ISortingObject
     setSortingObject: Dispatch<SetStateAction<ISortingObject>>
+}
+export interface IModal {
+    isVisible:boolean
+    setIsVisible:Dispatch<SetStateAction<boolean>>
+    rowDataIndex:number
+    setRowDataIndex:Dispatch<SetStateAction<number>>
 }

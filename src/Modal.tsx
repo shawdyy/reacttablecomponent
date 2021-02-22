@@ -1,23 +1,24 @@
-import React, { ReactElement, useEffect } from "react";
+import { MouseEvent, ReactElement, useEffect } from "react";
 
 interface IModal {
     title:string
     infoText:string[]
+    closeClickHandler:(e:MouseEvent) => void
     children?:ReactElement
 }
 
-const Modal = ({title,infoText=[],children}:IModal) =>{
+const Modal = ({title,infoText=[], closeClickHandler,children}:IModal) =>{
     useEffect(()=>{
         const styleElement = document.createElement("style");
         styleElement.id = "styleContainer"
-        styleElement.innerText = "* {overflow: hidden !important;}";
+        styleElement.innerText = "";
         document.head.appendChild(styleElement)
         return () =>{
             styleElement.innerText = "";
         };
     })
     return(
-        <div className="modalBackground">
+        <div style={{top: window.scrollY}} className="modalBackground">
             <div className="modalWindow">
                 <div className="modalHeader">
                     <div className="modalHeaderTitleWrapper">
@@ -32,7 +33,7 @@ const Modal = ({title,infoText=[],children}:IModal) =>{
                     })}
                     <div className="closeButtonWrapper">
                         <div>
-                            <span className="closeButton">✕</span>
+                            <span className="closeButton" onClick={closeClickHandler}>✕</span>
                         </div>
                     </div>
                 </div>
